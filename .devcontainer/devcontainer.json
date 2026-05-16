@@ -1,9 +1,11 @@
 {
-    "name": "ObsidianNotes",
+    "name": "DevContainer",
     "build": {
         "dockerfile": "./Dockerfile",
         "context": ".."
     },
+    "workspaceFolder": "/workspaces",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces,type=bind",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -26,6 +28,6 @@
     "mounts": [
         "source=${localEnv:HOME}/.config/gh,target=/home/vscode/.config/gh,type=bind,consistency=cached"
     ],
-    //"postCreateCommand": "pip install uv && uv sync --group dev",
+    "postCreateCommand": "uv sync --frozen",
     "forwardPorts": [8888]
 }
