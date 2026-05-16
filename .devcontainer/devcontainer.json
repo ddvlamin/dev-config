@@ -1,0 +1,31 @@
+{
+    "name": "ObsidianNotes",
+    "build": {
+        "dockerfile": "./Dockerfile",
+        "context": ".."
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-toolsai.jupyter",
+                "mechatroner.rainbow-csv",
+                "ms-toolsai.datawrangler",
+                "google.gemini-cli-vscode-ide-companion",
+                "tomoki1207.pdf"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath":"/workspaces/.venv/bin/python"
+            }
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    "mounts": [
+        "source=${localEnv:HOME}/.config/gh,target=/home/vscode/.config/gh,type=bind,consistency=cached"
+    ],
+    //"postCreateCommand": "pip install uv && uv sync --group dev",
+    "forwardPorts": [8888]
+}
