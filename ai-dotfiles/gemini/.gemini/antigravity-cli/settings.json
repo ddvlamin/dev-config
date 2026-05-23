@@ -1,5 +1,20 @@
 {
   "colorScheme": "colorblind-friendly dark",
+  "permissions": {
+    "allow": [
+      "command(ls)",
+      "command(find)",
+      "command(which)",
+      "command(git status)",
+      "command(git check-ignore)",
+      "command(git ls-files)",
+      "command(git diff)",
+      "command(git rev-parse)",
+      "command(cd)",
+      "command(git log)",
+      "command(git show)"
+    ]
+  },
   "statusLine": {
     "type": "",
     "command": "",
