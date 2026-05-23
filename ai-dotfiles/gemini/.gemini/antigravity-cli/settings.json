@@ -12,7 +12,10 @@
       "command(git rev-parse)",
       "command(cd)",
       "command(git log)",
-      "command(git show)"
+      "command(git show)",
+      "command(mkdir)",
+      "command(cp)",
+      "command(agy)"
     ]
   },
   "statusLine": {
