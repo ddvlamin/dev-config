@@ -178,6 +178,8 @@ cython_debug/
 **/.gemini/antigravity-cli/installation_id
 **/.gemini/antigravity-cli/keybindings.json
 **/.gemini/antigravity-cli/last_check.timestamp
+**/.gemini/antigravity-cli/bin/**
+**/.gemini/antigravity-cli/history.jsonl
 
 ai-dotfiles/.antigravitycli/**
 
