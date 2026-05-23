@@ -1,0 +1,12 @@
+{
+  "colorScheme": "colorblind-friendly dark",
+  "statusLine": {
+    "type": "",
+    "command": "",
+    "enabled": true
+  },
+  "trustedWorkspaces": [
+    "/workspaces"
+  ],
+  "verbosity": "low"
+}

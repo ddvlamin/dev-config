@@ -10,12 +10,9 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | UV_INSTALL_DIR=/usr/local/bin s
 # Set workspace
 WORKDIR /workspaces
 
-#RUN su vscode -c "uvx --from omega-memory omega setup --download-model"
-
 # [Optional] Add sudo support for the non-root user
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends npm libsecret-1-0 sudo stow \
-    && npm install -g @google/gemini-cli \
     && echo "vscode ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/vscode
 
 RUN npm install -g @modelcontextprotocol/server-filesystem
@@ -28,12 +25,11 @@ USER vscode
 # Copy project source code
 COPY . .
 
-# Install project dependencies
-#RUN uv sync --frozen
-
 RUN uvx --from omega-memory omega setup --download-model
 
 RUN uv tool install git+https://github.com/sydasif/web-search-mcp.git
+
+RUN curl -fsSL https://antigravity.google/cli/install.sh | sh
 
 # Stow AI dotfiles
 RUN cd ai-dotfiles && stow -v -t ~ gemini claude codex vibe

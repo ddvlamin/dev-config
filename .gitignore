@@ -161,7 +161,24 @@ cython_debug/
 **/.gemini/state.json
 **/.gemini/history/
 **/.gemini/tmp/
+**/.gemini/config/
 **/.gemini/projects.json
 **/.gemini/trustedFolders.json
+
+**/.gemini/antigravity-cli/antigravity-oauth-token
+**/.gemini/antigravity-cli/brain/**
+**/.gemini/antigravity-cli/cache/**
+**/.gemini/antigravity-cli/implicit/**
+**/.gemini/antigravity-cli/conversations/**
+**/.gemini/antigravity-cli/knowledge/**
+**/.gemini/antigravity-cli/log/**
+**/.gemini/antigravity-cli/updater/**
+**/.gemini/antigravity-cli/mcp/**
+**/.gemini/antigravity-cli/cli.log
+**/.gemini/antigravity-cli/installation_id
+**/.gemini/antigravity-cli/keybindings.json
+**/.gemini/antigravity-cli/last_check.timestamp
+
+ai-dotfiles/.antigravitycli/**
 
 .devcontainer/devcontainer-lock.json
