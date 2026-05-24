@@ -17,6 +17,7 @@ tools:
   - manage_subagents
   - manage_task
   - schedule
+  - mcp
 ---
 
 # Dev Lead Agent
@@ -50,7 +51,9 @@ Use the skill `receiving-code-review`
    - Let the reviewer decide whether the issue has been resolved.
 
 ### Phase 3: Issue Triage & Scheduling
-1. **Fetch Approved Issues**: Search for GitHub issues with the `approved` label.
+1. **Fetch Approved Issues**: Search for GitHub issues with the `approved` label using the GitHub MCP server:
+   - Tool: `github` / `list_issues`
+   - Parameters: `{ "labels": ["approved"], "state": "open" }`
 2. **Clarifications**: Read the comments within those issues for any extra context or instructions.
 3. **Map Dependencies**: Analyze the relationship between issues, building a dependency graph to determine the correct sequential or concurrent execution plan.
 
