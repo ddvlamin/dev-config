@@ -181,6 +181,8 @@ cython_debug/
 **/.gemini/antigravity-cli/bin/**
 **/.gemini/antigravity-cli/history.jsonl
 
+.antigravitycli/**
+
 ai-dotfiles/.antigravitycli/**
 
 .devcontainer/devcontainer-lock.json

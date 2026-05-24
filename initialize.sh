@@ -4,7 +4,7 @@ set -e
 # Configuration
 REPO_OWNER="ddvlamin"
 REPO_NAME="dev-config"
-BRANCH="${BRANCH:-main}"
+BRANCH="${BRANCH:-master}"
 
 echo "=========================================================="
 echo "Initializing Development Environment from $REPO_OWNER/$REPO_NAME"
@@ -12,7 +12,7 @@ echo "=========================================================="
 
 # Create temporary directory for download
 TEMP_DIR=$(mktemp -d)
-TARBALL_URL="https://github.com/$REPO_OWNER/$REPO_NAME/tarball/$BRANCH"
+TARBALL_URL="https://github.com/$REPO_OWNER/$REPO_NAME/archive/refs/heads/$BRANCH.tar.gz"
 
 echo "-> Downloading repository archive from GitHub ($BRANCH)..."
 if ! curl -sSL "$TARBALL_URL" -o "$TEMP_DIR/archive.tar.gz"; then
@@ -65,10 +65,21 @@ EOF
     echo "   [OK] Default .dockerignore created."
 fi
 
+# Copy pyproject.toml from tarball if it doesn't exist locally
+if [ ! -f "pyproject.toml" ]; then
+    echo "-> No pyproject.toml found, copying from repository..."
+    if [ -f "$TEMP_DIR/extracted/pyproject.toml" ]; then
+        cp "$TEMP_DIR/extracted/pyproject.toml" ./
+        echo "   [OK] pyproject.toml copied from repository."
+    else
+        echo "   [WARNING] pyproject.toml not found in source repository either, skipping."
+    fi
+fi
+
 # Modify pyproject.toml if it exists
 if [ -f "pyproject.toml" ]; then
     echo "-> Modifying pyproject.toml to add required dependencies..."
-    python3 -c '
+    python3 << 'PYEOF'
 import sys
 import os
 import re
@@ -81,13 +92,15 @@ if not os.path.exists("pyproject.toml"):
 with open("pyproject.toml", "r") as f:
     pyproject_content = f.read()
 
-block_match = re.search(r'dependencies\s*=\s*\[([\s\S]*?)\n\s*\]', pyproject_content)                                      
-                                                                                                                        
-if block_match:                                                                                                       
-    block_content = block_match.group(1)    
-                                                                                                                                                                                          
-    dependencies = re.findall(r'["\']([^"\']+)["\']', block_content)                                                                                                                                                               
-    dependencies += deps_to_add
+block_match = re.search(r'dependencies\s*=\s*\[([\s\S]*?)\n\s*\]', pyproject_content)
+
+if block_match:
+    block_content = block_match.group(1)
+
+    dependencies = re.findall(r'["\']([^"\']+)["\']', block_content)
+
+    existing_bases = {d.split('>=')[0].split('<')[0].split('==')[0].split('[')[0].strip() for d in dependencies}
+    dependencies += [d for d in deps_to_add if d.split('[')[0] not in existing_bases]
 
     new_block = "\n" + ",\n".join(f'    "{dep}"' for dep in dependencies)
 
@@ -98,10 +111,21 @@ if block_match:
     )
     with open("pyproject.toml", "w") as f:
         f.write(pyproject_content)
-                                                                                                                                                                                               
-else:                                                                                                                 
-    print("No dependencies block found.")
-'
+    print("   [OK] pyproject.toml dependencies updated.")
+
+else:
+    new_block = "dependencies = [\n" + ",\n".join(f'    "{dep}"' for dep in deps_to_add) + "\n]\n"
+    project_match = re.search(r'(\[project\][^\[]*)', pyproject_content, re.DOTALL)
+    if project_match:
+        # Insert after the [project] section header line
+        insert_pos = pyproject_content.index('\n', pyproject_content.index('[project]')) + 1
+        pyproject_content = pyproject_content[:insert_pos] + new_block + pyproject_content[insert_pos:]
+    else:
+        pyproject_content += "\n" + new_block
+    with open("pyproject.toml", "w") as f:
+        f.write(pyproject_content)
+    print("   [OK] dependencies block created in pyproject.toml.")
+PYEOF
 fi
 
 uv lock
