@@ -9,5 +9,5 @@ Your task is to review {{args}}.
 
 Use the following best practices when providing your review:
 
-@{docs/best-practices.md}
+@{skills/reviewer/SKILL.md}
 """
