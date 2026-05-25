@@ -29,7 +29,8 @@
       "command(uniq)",
       "command(sed)",
       "command(tail)",
-      "command(strings)"
+      "command(strings)",
+      "mcp(duckduckgo/web_search)"
     ]
   },
   "statusLine": {
