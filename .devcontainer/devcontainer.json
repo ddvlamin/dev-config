@@ -15,7 +15,12 @@
                 "mechatroner.rainbow-csv",
                 "ms-toolsai.datawrangler",
                 "google.gemini-cli-vscode-ide-companion",
-                "tomoki1207.pdf"
+                "tomoki1207.pdf",
+                "davidanson.vscode-markdownlint",
+                "github.vscode-pull-request-github",
+                "mermaidchart.vscode-mermaid-chart",
+                "pomdtr.excalidraw-editor",
+                "hashicorp.terraform"
             ],
             "settings": {
                 "python.defaultInterpreterPath":"/workspaces/.venv/bin/python"
