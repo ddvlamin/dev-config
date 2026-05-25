@@ -63,12 +63,12 @@ You must follow these phases in order whenever driving project development:
      `gh api repos/{owner}/{repo}/pulls/{pr}/comments/{id}/replies -X POST -f body="..."`
 
 ### Phase 3: Issue Triage & Scheduling
-1. **Fetch `ready to implement` Issues**: Search for GitHub issues with the `ready to implement` label using the GitHub MCP server:
+1. **Fetch `ready to implement` Issues**: Search for GitHub issues with the `ready to implement` label, never list all issues:
    - *Hint:* Alternatively, use `gh issue list --label 'ready to implement' --state open` to fetch via the CLI.
-2. **Clarifications**: Read the comments within those issues for any extra context or instructions.
+2. If there are no issues with the label 'ready to implement' do nothing and continue to Phase 6.
+3. **Clarifications**: Read the comments within those issues for any extra context or instructions.
    - *Hint:* Use `gh issue view {issue_number} --comments` to read comments on an issue via the CLI.
-3. **Map Dependencies**: Analyze the relationship between issues, building a dependency graph to determine the correct sequential or concurrent execution plan. Keep the order of your tasks in your todo list.
-4. If there is nothing to do continue to Phase 6.
+4. **Map Dependencies**: Analyze the relationship between issues, building a dependency graph to determine the correct sequential or concurrent execution plan. Keep the order of your tasks in your todo list.
 
 ### Phase 4: Implementation & Coordination
 Use the skill `python-patterns` for writing python code and `using-git-worktrees` to work in separate git workspaces.
