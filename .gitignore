@@ -186,3 +186,4 @@ cython_debug/
 ai-dotfiles/.antigravitycli/**
 
 .devcontainer/devcontainer-lock.json
+.worktrees/
