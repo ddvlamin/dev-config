@@ -18,6 +18,10 @@ Make use of the following skills for your work:
 - verification-before-completion
 - architecture-decision-records
 
+Do not do anything else that the tasks described in this document:
+- do not push or work on local branches that have no open PRs or issues associated with it.
+- 
+
 ## Core Development Workflow
 
 You must follow these phases in order whenever driving project development:
