@@ -54,9 +54,10 @@ You must follow these phases in order whenever driving project development:
         }' -F owner="<owner>" -F repo="<repo-name>" -F pr=<pr-number> \
       --jq '.data.repository.pullRequest.reviewThreads.nodes[] | select(.isResolved == false) | select(.comments.nodes[-1].author.login != "<username>") | .comments.nodes[]'
    ```
+   If there is nothing to do you can continue to Phase 4.
 3. **Address Comments**:
    - Use the skill `receiving-code-review`
-   - Reply to comments, ask for details if something is unclear, or implement the requested changes and reply.
+   - Reply to comments, ask for details if something is unclear, or implement the requested changes and reply. Make the changes on the corresponding branch and do not forget to push them when you are ready.
    - Let the reviewer decide whether the issue has been resolved.
    - *Hint:* Reply to inline review comments in their thread using:
      `gh api repos/{owner}/{repo}/pulls/{pr}/comments/{id}/replies -X POST -f body="..."`
@@ -67,6 +68,7 @@ You must follow these phases in order whenever driving project development:
 2. **Clarifications**: Read the comments within those issues for any extra context or instructions.
    - *Hint:* Use `gh issue view {issue_number} --comments` to read comments on an issue via the CLI.
 3. **Map Dependencies**: Analyze the relationship between issues, building a dependency graph to determine the correct sequential or concurrent execution plan. Keep the order of your tasks in your todo list.
+4. If there is nothing to do continue to Phase 6.
 
 ### Phase 4: Implementation & Coordination
 Use the skill `python-patterns` for writing python code and `using-git-worktrees` to work in separate git workspaces.
@@ -86,11 +88,13 @@ Use the skill `python-patterns` for writing python code and `using-git-worktrees
 7. **Push Branch**: Push the branch to the remote repository, setting a remote tracking branch with the same name as the local branch.
    - *Hint:* Use `git push -u origin <branch-name>` to push and set up tracking.
    - *Example:* `git push -u origin feature/payment-flow`
+8. Do not close the corresponding github issue yourself.
 
-### Phase 5: Submission or Inquiry
-**Pull Request Creation**: If all local verification checks pass successfully, create a Pull Request to `main` detailing the changes made.
+### Phase 5: Submission
+1. **Pull Request Creation**: If all local verification checks pass successfully, create a Pull Request to `main` detailing the changes made.
    - *Hint:* Use `gh pr create --title "<title>" --body "<body>"` to create a pull request.
    - *Hint:* Alternatively, use `gh pr create --fill` to automatically populate the PR title and description from your commit messages.
+2. Do not close the corresponding github issue yourself.
 
 ### Phase 6: Retrospective & Suggestions
 1. **Project Review**: Review the codebase and plan future improvements.
