@@ -5,6 +5,7 @@ set -e
 REPO_OWNER="ddvlamin"
 REPO_NAME="dev-config"
 BRANCH="${BRANCH:-main}"
+PROJECT_NAME="${PROJECT_NAME:-dev-config}"
 
 echo "=========================================================="
 echo "Initializing Development Environment from $REPO_OWNER/$REPO_NAME"
@@ -108,7 +109,8 @@ fi
 
 # Modify pyproject.toml if it exists
 if [ -f "pyproject.toml" ]; then
-    echo "-> Modifying pyproject.toml to add required dependencies..."
+    echo "-> Modifying pyproject.toml to add required dependencies and update project name..."
+    export PROJECT_NAME
     python3 << 'PYEOF'
 import sys
 import os
@@ -121,6 +123,23 @@ if not os.path.exists("pyproject.toml"):
 
 with open("pyproject.toml", "r") as f:
     pyproject_content = f.read()
+
+# Update project name if specified
+project_name = os.environ.get("PROJECT_NAME")
+if project_name:
+    project_match = re.search(r'\[project\]([\s\S]*?)(?=\n\s*\[|$)', pyproject_content)
+
+    if project_match:
+        project_section = project_match.group(0)
+
+        updated_section = re.sub(
+            r'(name\s*=\s*)(["\'])([^"\']*)(["\'])',
+            r'\1\2' + project_name + r'\4',
+            project_section,
+            count=1
+        )
+
+pyproject_content = pyproject_content.replace(project_section, updated_section)
 
 block_match = re.search(r'dependencies\s*=\s*\[([\s\S]*?)\n\s*\]', pyproject_content)
 
