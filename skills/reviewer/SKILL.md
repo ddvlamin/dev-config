@@ -1,12 +1,15 @@
+---
+name: reviewer
+description: Use this when ask to review code. This is a comprehensive code review guide that enforces standards for code quality, security vulnerabilities, comprehensive test coverage, performance bottlenecks, architectural patterns, and document cleanliness.
+---
+
 # Generic Code Review Instructions
 
-Comprehensive code review guidelines for GitHub Copilot that can be adapted to any project. These instructions follow best practices from prompt engineering and provide a structured approach to code quality, security, testing, and architecture review.
+Comprehensive code review guidelines that can be adapted to any project. These instructions follow best practices from prompt engineering and provide a structured approach to code quality, security, testing, and architecture review.
 
 ## Review Language
 
 When performing a code review, respond in **English** (or specify your preferred language).
-
-> **Customization Tip**: Change to your preferred language by replacing "English" with "Portuguese (Brazilian)", "Spanish", "French", etc.
 
 ## Review Priorities
 
