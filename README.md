@@ -7,15 +7,56 @@ Personal developer configuration repository — a single source of truth for dev
 | Directory | Purpose |
 |-----------|---------|
 | [`ai-dotfiles/`](ai-dotfiles/) | Symlink-managed configs for AI CLIs (Claude, Gemini, Codex, Vibe) via GNU Stow |
-| [`skills/`](skills/) | Reusable skill files for Antigravity CLI (code review, git, TDD, refactoring, …) |
+| [`.skills/`](.skills/) | Reusable skill files for Antigravity CLI (code review, git, TDD, refactoring, …) |
 | [`.agents/`](.agents/) | Custom agents and plugins for Antigravity CLI |
-| [`prompts/`](prompts/) | Shared instruction files for code review, task implementation, memory bank, etc. |
+| [`.prompts/`](.prompts/) | Shared instruction files for code review, task implementation, memory bank, etc. |
 | [`.devcontainer/`](.devcontainer/) | VS Code Dev Container definition (Dockerfile + devcontainer.json) |
 
 ## Quick start
 
 ### Dev Container
 Open this repo in VS Code and choose **Reopen in Container**. The container installs all Python dependencies via `uv sync`.
+
+### Workspace Initialization
+To initialize a new or existing project directory on your host machine using the templates in this repository (deploying `.devcontainer`, `.dockerignore`, `ai-dotfiles`, and configuring Python dependencies), run the following command from the root of the target project directory:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/ddvlamin/dev-config/master/initialize.sh | bash
+```
+
+*Note: You can customize the source branch by prefixing the command with `BRANCH=your-branch`.*
+
+#### Prerequisites
+Ensure the following tools are installed on your host system:
+* **curl** (for downloading the assets)
+* **tar** (for extraction)
+* **Python 3** (for merging `pyproject.toml` dependencies)
+* **uv** (for dependency resolution and locking)
+* **gh** (GitHub CLI, for host-level GitHub integrations and authentication)
+
+##### Installation
+* **macOS**:
+  ```bash
+  brew install curl python uv gh
+  ```
+* **Linux (Debian/Ubuntu)**:
+  ```bash
+  sudo apt-get update && sudo apt-get install -y curl tar python3 gh
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  ```
+
+##### GitHub CLI Authentication
+To enable smooth GitHub interaction, configure your credentials by running `gh auth login`, or manually retrieve your token with `gh auth token` and ensure it is saved in your `oauth_token` field inside `~/.config/gh/hosts.yml`.
+
+Example `~/.config/gh/hosts.yml`:
+```yaml
+github.com:
+    user: your_github_username
+    oauth_token: gho_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    git_protocol: https
+```
+
+
 
 ### AI dotfiles
 Configs for AI CLIs live in [`ai-dotfiles/`](ai-dotfiles/) and are managed with [GNU Stow](https://www.gnu.org/software/stow/):
@@ -29,7 +70,7 @@ stow claude                     # or pick individual ones
 See [`ai-dotfiles/README.md`](ai-dotfiles/README.md) for full details and security notes.
 
 ### Skills
-Skills extend Antigravity CLI with specialized behaviours (TDD, git commits, deep research, …). They live in [`skills/`](skills/) and are picked up automatically when `skills/` is configured as the skills directory in `.antigravitycli`.
+Skills extend Antigravity CLI with specialized behaviours (TDD, git commits, deep research, …). They live in [`.skills/`](.skills/) and are picked up automatically when `.skills/` is configured as the skills directory in `.antigravitycli`.
 
 ## Dependencies
 
