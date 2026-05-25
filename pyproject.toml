@@ -1,7 +1,7 @@
 [project]
 name = "devcontainer-configuration"
 version = "0.1.0"
-description = "devcontainer configuration"
+description = "devcontainer configuration with different AI vendor assistent configurations"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -16,4 +16,5 @@ dependencies = [
 dev = [
     "pytest>=8.0.0",
     "pytest-asyncio>=0.23.0",
+    "ipykernel"
 ]
