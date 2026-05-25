@@ -45,6 +45,36 @@ else
     echo "   [WARNING] .ai-dotfiles folder not found in source repository."
 fi
 
+# Copy .skills
+echo "-> Deploying .skills..."
+if [ -d "$TEMP_DIR/extracted/.skills" ]; then
+    rm -rf .skills
+    cp -r "$TEMP_DIR/extracted/.skills" ./
+    echo "   [OK] .skills folder updated."
+else
+    echo "   [WARNING] .skills folder not found in source repository."
+fi
+
+# Configure .gitignore
+echo "-> Configuring .gitignore..."
+if [ ! -f .gitignore ]; then
+    touch .gitignore
+    echo "   [OK] Created .gitignore file."
+fi
+
+# Ensure .ai-dotfiles and .skills are in .gitignore
+for item in ".ai-dotfiles" ".skills"; do
+    if ! grep -qxF "$item" .gitignore; then
+        # Ensure there is a newline at the end of the file before appending
+        if [ -s .gitignore ] && [ -n "$(tail -c 1 .gitignore)" ]; then
+            echo "" >> .gitignore
+        fi
+        echo "$item" >> .gitignore
+        echo "   [OK] Added $item to .gitignore."
+    fi
+done
+
+
 # Copy .dockerignore
 echo "-> Deploying .dockerignore..."
 if [ -f "$TEMP_DIR/extracted/.dockerignore" ]; then

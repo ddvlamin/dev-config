@@ -18,7 +18,7 @@ Personal developer configuration repository — a single source of truth for dev
 Open this repo in VS Code and choose **Reopen in Container**. The container installs all Python dependencies via `uv sync`.
 
 ### Workspace Initialization
-To initialize a new or existing project directory on your host machine using the templates in this repository (deploying `.devcontainer`, `.dockerignore`, `.ai-dotfiles`, and configuring Python dependencies), run the following command from the root of the target project directory:
+To initialize a new or existing project directory on your host machine using the templates in this repository (deploying `.devcontainer`, `.dockerignore`, `.ai-dotfiles`, `.skills`, configuring `.gitignore`, and configuring Python dependencies), run the following command from the root of the target project directory:
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/ddvlamin/dev-config/master/initialize.sh | bash
