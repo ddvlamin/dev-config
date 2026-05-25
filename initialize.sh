@@ -4,7 +4,7 @@ set -e
 # Configuration
 REPO_OWNER="ddvlamin"
 REPO_NAME="dev-config"
-BRANCH="${BRANCH:-master}"
+BRANCH="${BRANCH:-main}"
 
 echo "=========================================================="
 echo "Initializing Development Environment from $REPO_OWNER/$REPO_NAME"
