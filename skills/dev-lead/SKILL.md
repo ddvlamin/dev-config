@@ -65,7 +65,7 @@ You must follow these phases in order whenever driving project development:
 ### Phase 3: Issue Triage & Scheduling
 1. **Fetch `ready to implement` Issues**: Search for GitHub issues with the `ready to implement` label, never list all issues:
    - *Hint:* Alternatively, use `gh issue list --label 'ready to implement' --state open` to fetch via the CLI.
-2. If there are no issues with the label 'ready to implement' do nothing and continue to Phase 6.
+2. If there are no issues with the label 'ready to implement' do nothing and continue to Phase 6. Never list all issues.
 3. **Clarifications**: Read the comments within those issues for any extra context or instructions.
    - *Hint:* Use `gh issue view {issue_number} --comments` to read comments on an issue via the CLI.
 4. **Map Dependencies**: Analyze the relationship between issues, building a dependency graph to determine the correct sequential or concurrent execution plan. Keep the order of your tasks in your todo list.
