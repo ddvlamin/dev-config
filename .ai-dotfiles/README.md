@@ -17,8 +17,8 @@ A centralized repository for managing configurations for multiple AI assistant C
 
 ### 1. Clone the repository
 ```bash
-git clone <your-repo-url> ~/ai-dotfiles
-cd ~/ai-dotfiles
+git clone <your-repo-url> repo
+cd repo/.ai-dotfiles
 ```
 
 ### 2. Apply configurations
@@ -45,5 +45,6 @@ ls -la ~ | grep -E ".claude|.vibe|.codex|.gemini"
 - Vibe: `.vibe/.env` is ignored.
 - Codex: `.codex/auth.json` is ignored.
 - Gemini: `.gemini/auth.json` and `.gemini/.env` are ignored.
+- Antigravity: `.gemini/anitgravity-cli/antigravity-oauth-token`
 
 Keep your secrets in these local-only files.

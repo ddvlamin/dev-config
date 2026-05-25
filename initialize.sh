@@ -35,14 +35,14 @@ else
     echo "   [WARNING] .devcontainer folder not found in source repository."
 fi
 
-# Copy ai-dotfiles
-echo "-> Deploying ai-dotfiles..."
-if [ -d "$TEMP_DIR/extracted/ai-dotfiles" ]; then
-    rm -rf ai-dotfiles
-    cp -r "$TEMP_DIR/extracted/ai-dotfiles" ./
-    echo "   [OK] ai-dotfiles folder updated."
+# Copy .ai-dotfiles
+echo "-> Deploying .ai-dotfiles..."
+if [ -d "$TEMP_DIR/extracted/.ai-dotfiles" ]; then
+    rm -rf .ai-dotfiles
+    cp -r "$TEMP_DIR/extracted/.ai-dotfiles" ./
+    echo "   [OK] .ai-dotfiles folder updated."
 else
-    echo "   [WARNING] ai-dotfiles folder not found in source repository."
+    echo "   [WARNING] .ai-dotfiles folder not found in source repository."
 fi
 
 # Copy .dockerignore

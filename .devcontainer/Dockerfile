@@ -32,7 +32,7 @@ RUN uv tool install git+https://github.com/sydasif/web-search-mcp.git
 RUN curl -fsSL https://antigravity.google/cli/install.sh | sh
 
 # Stow AI dotfiles
-RUN cd ai-dotfiles && stow -v -t ~ gemini claude codex vibe
+RUN cd .ai-dotfiles && stow -v -t ~ gemini claude codex vibe
 
 # Preserve git config and ensure uv is in PATH for bash
 RUN echo 'git config --global user.email "ddvlamin@gmail.com"' >> ~/.bashrc && \
