@@ -5,6 +5,7 @@ set -e
 REPO_OWNER="ddvlamin"
 REPO_NAME="dev-config"
 BRANCH="${BRANCH:-main}"
+PROJECT_NAME="${PROJECT_NAME:-dev-config}"
 
 echo "=========================================================="
 echo "Initializing Development Environment from $REPO_OWNER/$REPO_NAME"
@@ -108,7 +109,8 @@ fi
 
 # Modify pyproject.toml if it exists
 if [ -f "pyproject.toml" ]; then
-    echo "-> Modifying pyproject.toml to add required dependencies..."
+    echo "-> Modifying pyproject.toml to add required dependencies and update project name..."
+    export PROJECT_NAME
     python3 << 'PYEOF'
 import sys
 import os
@@ -122,7 +124,21 @@ if not os.path.exists("pyproject.toml"):
 with open("pyproject.toml", "r") as f:
     pyproject_content = f.read()
 
-block_match = re.search(r'dependencies\s*=\s*\[([\s\S]*?)\n\s*\]', pyproject_content)
+# Update project name if specified
+project_name = os.environ.get("PROJECT_NAME")
+if project_name:
+    project_match = re.search(r'\[project\]([\s\S]*?)(?=\n\s*\[|$)', pyproject_content)
+    if project_match:
+        project_section = project_match.group(0)
+        updated_section = re.sub(
+            r'(name\s*=\s*)(["\'])([^"\']*)(["\'])',
+            r'\1\2' + project_name + r'\4',
+            project_section,
+            count=1
+        )
+        pyproject_content = pyproject_content.replace(project_section, updated_section)
+
+block_match = re.search(r'dependencies\s*=\s*\[([\s\S]*?)\]', pyproject_content)
 
 if block_match:
     block_content = block_match.group(1)
@@ -132,16 +148,12 @@ if block_match:
     existing_bases = {d.split('>=')[0].split('<')[0].split('==')[0].split('[')[0].strip() for d in dependencies}
     dependencies += [d for d in deps_to_add if d.split('[')[0] not in existing_bases]
 
-    new_block = "\n" + ",\n".join(f'    "{dep}"' for dep in dependencies)
+    new_block = "dependencies = [\n" + ",\n".join(f'    "{dep}"' for dep in dependencies) + "\n]"
 
-    pyproject_content = re.sub(
-        r'(dependencies\s*=\s*\[)([\s\S]*?)(\n\s*\])',
-        r'\1' + new_block + r'\3',
-        pyproject_content
-    )
+    pyproject_content = pyproject_content.replace(block_match.group(0), new_block)
     with open("pyproject.toml", "w") as f:
         f.write(pyproject_content)
-    print("   [OK] pyproject.toml dependencies updated.")
+    print("   [OK] pyproject.toml dependencies and project name updated.")
 
 else:
     new_block = "dependencies = [\n" + ",\n".join(f'    "{dep}"' for dep in deps_to_add) + "\n]\n"
@@ -154,7 +166,7 @@ else:
         pyproject_content += "\n" + new_block
     with open("pyproject.toml", "w") as f:
         f.write(pyproject_content)
-    print("   [OK] dependencies block created in pyproject.toml.")
+    print("   [OK] dependencies block created and project name updated in pyproject.toml.")
 PYEOF
 fi
 
