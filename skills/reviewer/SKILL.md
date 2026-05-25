@@ -1,6 +1,6 @@
 ---
 name: reviewer
-description: A comprehensive code review guide that enforces standards for code quality, security vulnerabilities, comprehensive test coverage, performance bottlenecks, architectural patterns, and document cleanliness.
+description: Use this when ask to review code. This is a comprehensive code review guide that enforces standards for code quality, security vulnerabilities, comprehensive test coverage, performance bottlenecks, architectural patterns, and document cleanliness.
 ---
 
 # Generic Code Review Instructions
