@@ -7,6 +7,17 @@ REPO_NAME="dev-config"
 BRANCH="${BRANCH:-main}"
 PROJECT_NAME="${PROJECT_NAME:-dev-config}"
 
+# Ensure uv is installed
+if command -v uv >/dev/null 2>&1; then
+    UV_CMD="uv"
+elif [ -f "$HOME/.local/bin/uv" ]; then
+    UV_CMD="$HOME/.local/bin/uv"
+else
+    echo "-> 'uv' not found. Installing uv locally..."
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    UV_CMD="$HOME/.local/bin/uv"
+fi
+
 echo "=========================================================="
 echo "Initializing Development Environment from $REPO_OWNER/$REPO_NAME"
 echo "=========================================================="
@@ -99,7 +110,7 @@ if [ ! -f "AGENTS.md" ]; then
     fi
 fi
 
-uv lock
+"$UV_CMD" lock
 
 # Clean up
 rm -rf "$TEMP_DIR"
