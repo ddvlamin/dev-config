@@ -31,7 +31,8 @@
       "command(tail)",
       "command(strings)",
       "mcp(duckduckgo/web_search)",
-      "command(file)"
+      "command(file)",
+      "command(shellcheck)"
     ]
   },
   "statusLine": {
