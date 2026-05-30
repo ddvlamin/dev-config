@@ -109,7 +109,7 @@
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "/workspaces/"
+        "/workspace/"
       ]
     },
     "firecrawl": {
@@ -164,7 +164,7 @@
       "disabled": true
     },
     "omega-memory": {
-      "command": "/workspaces/.venv/bin/omega",
+      "command": "/workspace/.venv/bin/omega",
       "args": [
         "serve"
       ]

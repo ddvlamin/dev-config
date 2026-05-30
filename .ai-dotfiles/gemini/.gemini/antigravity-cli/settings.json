@@ -39,7 +39,7 @@
     "enabled": true
   },
   "trustedWorkspaces": [
-    "/workspaces"
+    "/workspace"
   ],
   "verbosity": "low"
 }

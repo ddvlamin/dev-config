@@ -8,7 +8,7 @@ USER root
 RUN curl -LsSf https://astral.sh/uv/install.sh | UV_INSTALL_DIR=/usr/local/bin sh
 
 # Set workspace
-WORKDIR /workspaces
+WORKDIR /workspace
 
 # [Optional] Add sudo support for the non-root user
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
@@ -17,7 +17,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 RUN npm install -g @modelcontextprotocol/server-filesystem
 
-RUN chown -R vscode:vscode /workspaces
+RUN chown -R vscode:vscode /workspace
 
 # [Optional] Set the default user. Omit if you want to connect as root.
 USER vscode
