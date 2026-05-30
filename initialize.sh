@@ -88,6 +88,17 @@ if [ ! -f "pyproject.toml" ]; then
     fi
 fi
 
+# Copy AGENTS.md from tarball if it doesn't exist locally
+if [ ! -f "AGENTS.md" ]; then
+    echo "-> No AGENTS.md found, copying from repository..."
+    if [ -f "$TEMP_DIR/extracted/AGENTS.md" ]; then
+        cp "$TEMP_DIR/extracted/AGENTS.md" ./
+        echo "   [OK] AGENTS.md copied from repository."
+    else
+        echo "   [WARNING] AGENTS.md not found in source repository either, skipping."
+    fi
+fi
+
 uv lock
 
 # Clean up
