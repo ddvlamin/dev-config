@@ -30,7 +30,8 @@
       "command(sed)",
       "command(tail)",
       "command(strings)",
-      "mcp(duckduckgo/web_search)"
+      "mcp(duckduckgo/web_search)",
+      "command(file)"
     ]
   },
   "statusLine": {
