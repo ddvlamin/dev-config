@@ -34,13 +34,14 @@ RUN curl -fsSL https://opencode.ai/install | bash
 
 # Stow AI dotfiles
 RUN cd .ai-dotfiles && stow -v -t ~ gemini claude codex vibe
+RUN cd .ai-dotfiles && stow -v -t ~/.config/opencode opencode
 
 # Preserve git config and ensure uv is in PATH for bash
 RUN echo 'git config --global user.email "ddvlamin@gmail.com"' >> ~/.bashrc && \
     echo 'git config --global user.name "Dieter Devlaminck"' >> ~/.bashrc && \
     echo 'export GITHUB_TOKEN=$(gh auth token 2>/dev/null)' >> ~/.bashrc
 
-ENV PATH="/home/vscode/.opencode/bin:${PATH}"
+#ENV PATH="/home/vscode/.opencode/bin:${PATH}"
 ENV NO_BROWSER=true
 
 
