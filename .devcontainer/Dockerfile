@@ -30,6 +30,7 @@ RUN uvx --from omega-memory omega setup --download-model
 RUN uv tool install git+https://github.com/sydasif/web-search-mcp.git
 
 RUN curl -fsSL https://antigravity.google/cli/install.sh | sh
+RUN curl -fsSL https://opencode.ai/install | bash
 
 # Stow AI dotfiles
 RUN cd .ai-dotfiles && stow -v -t ~ gemini claude codex vibe
@@ -39,4 +40,7 @@ RUN echo 'git config --global user.email "ddvlamin@gmail.com"' >> ~/.bashrc && \
     echo 'git config --global user.name "Dieter Devlaminck"' >> ~/.bashrc && \
     echo 'export GITHUB_TOKEN=$(gh auth token 2>/dev/null)' >> ~/.bashrc
 
+ENV PATH="/home/vscode/.opencode/bin:${PATH}"
 ENV NO_BROWSER=true
+
+
