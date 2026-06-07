@@ -1,7 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "model": "deepseek/deepseek-v4-flash",
-  "theme": "kanagawa",
   "provider": {
     "deepseek": {
       "models": {
@@ -14,7 +13,7 @@
     }
   },
   "skills": {
-    "paths": ["./skills"]
+    "paths": ["/workspace/.skills"]
   },
   "mcp": {
     "browser-use": {
