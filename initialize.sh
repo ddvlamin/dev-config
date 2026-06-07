@@ -5,6 +5,7 @@ set -e
 REPO_OWNER="ddvlamin"
 REPO_NAME="dev-config"
 BRANCH="${BRANCH:-main}"
+PROJECT_NAME="${1:?Usage: $0 <project-name>}"
 
 # Ensure uv is installed
 if command -v uv >/dev/null 2>&1; then
@@ -45,6 +46,10 @@ if [ -d "$TEMP_DIR/extracted/.devcontainer" ]; then
 else
     echo "   [WARNING] .devcontainer folder not found in source repository."
 fi
+
+echo "-> Setting project name in devcontainer.json..."
+sed -i "s/\"name\": \".*\"/\"name\": \"$PROJECT_NAME\"/" .devcontainer/devcontainer.json
+echo "   [OK] devcontainer.json name set to '$PROJECT_NAME'."
 
 # Copy .ai-dotfiles
 echo "-> Deploying .ai-dotfiles..."
@@ -97,6 +102,10 @@ if [ ! -f "pyproject.toml" ]; then
         echo "   [WARNING] pyproject.toml not found in source repository either, skipping."
     fi
 fi
+
+echo "-> Setting project name in pyproject.toml..."
+sed -i "s/^name = \".*\"/name = \"$PROJECT_NAME\"/" pyproject.toml
+echo "   [OK] pyproject.toml name set to '$PROJECT_NAME'."
 
 # Copy AGENTS.md from tarball if it doesn't exist locally
 if [ ! -f "AGENTS.md" ]; then
