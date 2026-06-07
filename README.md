@@ -20,7 +20,7 @@ Open this repo in VS Code and choose **Reopen in Container**. The container inst
 To initialize a new or existing project directory on your host machine using the templates in this repository (deploying `.devcontainer`, `.dockerignore`, `.ai-dotfiles`, `.skills`, configuring `.gitignore`, and configuring Python dependencies), run the following command from the root of the target project directory:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/ddvlamin/dev-config/main/initialize.sh | bash
+curl -sSL https://raw.githubusercontent.com/ddvlamin/dev-config/main/initialize.sh | bash -s -- <project-name>
 ```
 
 *Note: You can customize the source branch by prefixing the command with `BRANCH=your-branch`.*
