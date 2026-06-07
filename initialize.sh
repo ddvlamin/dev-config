@@ -5,7 +5,6 @@ set -e
 REPO_OWNER="ddvlamin"
 REPO_NAME="dev-config"
 BRANCH="${BRANCH:-main}"
-PROJECT_NAME="${PROJECT_NAME:-dev-config}"
 
 # Ensure uv is installed
 if command -v uv >/dev/null 2>&1; then
