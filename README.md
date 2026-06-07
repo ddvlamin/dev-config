@@ -8,7 +8,6 @@ Personal developer configuration repository — a single source of truth for dev
 |-----------|---------|
 | [`.ai-dotfiles/`](.ai-dotfiles/) | Symlink-managed configs for AI CLIs (Claude, Gemini, Codex, Vibe) via GNU Stow |
 | [`.skills/`](.skills/) | Reusable skill files for Antigravity CLI (code review, git, TDD, refactoring, …) |
-| [`.agents/`](.agents/) | Custom agents and plugins for Antigravity CLI |
 | [`.prompts/`](.prompts/) | Shared instruction files for code review, task implementation, memory bank, etc. |
 | [`.devcontainer/`](.devcontainer/) | VS Code Dev Container definition (Dockerfile + devcontainer.json) |
 
@@ -28,9 +27,9 @@ curl -sSL https://raw.githubusercontent.com/ddvlamin/dev-config/main/initialize.
 
 #### Prerequisites
 Ensure the following tools are installed on your host system:
+* **python**
 * **curl** (for downloading the assets)
 * **tar** (for extraction)
-* **Python 3** (for merging `pyproject.toml` dependencies)
 * **uv** (for dependency resolution and locking)
 * **gh** (GitHub CLI, for host-level GitHub integrations and authentication)
 
@@ -46,14 +45,16 @@ Ensure the following tools are installed on your host system:
   ```
 
 ##### GitHub CLI Authentication
-To enable smooth GitHub interaction, configure your credentials by running `gh auth login`, or manually retrieve your token with `gh auth token` and ensure it is saved in your `oauth_token` field inside `~/.config/gh/hosts.yml`.
+To enable smooth GitHub interaction, configure your credentials by running `gh auth login`, and manually retrieve your token with `gh auth token` and ensure it is saved in your `oauth_token` field inside `~/.config/gh/hosts.yml`.
 
 Example `~/.config/gh/hosts.yml`:
 ```yaml
 github.com:
-    user: your_github_username
-    oauth_token: gho_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     git_protocol: https
+    users:
+        <YOUR_GITHUB_USER>s:
+    user: <YOUR_GITHUB_USER>
+    oauth_token: <YOUR_TOKEN>
 ```
 
 
@@ -70,7 +71,7 @@ stow claude                     # or pick individual ones
 See [`.ai-dotfiles/README.md`](.ai-dotfiles/README.md) for full details and security notes.
 
 ### Skills
-Skills extend Antigravity CLI with specialized behaviours (TDD, git commits, deep research, …). They live in [`.skills/`](.skills/) and are picked up automatically when `.skills/` is configured as the skills directory in `.antigravitycli`.
+Skills extend agentic CLIs with specialized behaviours (TDD, git commits, deep research, …). They live in [`.skills/`](.skills/) and are picked up automatically when `.skills/` is configured as the skills directory for your agentic CLI.
 
 ## Dependencies
 
