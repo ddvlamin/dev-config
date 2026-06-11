@@ -6,7 +6,9 @@
       "models": {
         "deepseek-v4-flash": {
           "options": {
-            "reasoningEffort": "high"
+            "baseURL": "https://api.deepseek.com/v1",
+            "reasoningEffort": "high",
+            "apiKey": "{env:DEEPSEEK_API_KEY}"
           }
         }
       }
