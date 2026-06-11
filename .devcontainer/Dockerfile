@@ -38,8 +38,7 @@ RUN mkdir -p ~/.config/opencode && cd .ai-dotfiles && stow -v -t ~/.config/openc
 
 # Preserve git config and ensure uv is in PATH for bash
 RUN echo 'git config --global user.email "ddvlamin@gmail.com"' >> ~/.bashrc && \
-    echo 'git config --global user.name "Dieter Devlaminck"' >> ~/.bashrc && \
-    echo 'export GITHUB_TOKEN=$(gh auth token 2>/dev/null)' >> ~/.bashrc
+    echo 'git config --global user.name "Dieter Devlaminck"' >> ~/.bashrc
 
 #ENV PATH="/home/vscode/.opencode/bin:${PATH}"
 ENV NO_BROWSER=true
