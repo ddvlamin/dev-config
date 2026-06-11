@@ -15,7 +15,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends npm libsecret-1-0 sudo stow \
     && echo "vscode ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/vscode
 
-RUN npm install -g @modelcontextprotocol/server-filesystem
+RUN npm install -g npm@latest && \
+    npm install -g @modelcontextprotocol/server-filesystem @modelcontextprotocol/server-github @modelcontextprotocol/server-sequential-thinking
 
 RUN chown -R vscode:vscode /workspace
 
@@ -38,8 +39,7 @@ RUN mkdir -p ~/.config/opencode && cd .ai-dotfiles && stow -v -t ~/.config/openc
 
 # Preserve git config and ensure uv is in PATH for bash
 RUN echo 'git config --global user.email "ddvlamin@gmail.com"' >> ~/.bashrc && \
-    echo 'git config --global user.name "Dieter Devlaminck"' >> ~/.bashrc && \
-    echo 'export GITHUB_TOKEN=$(gh auth token 2>/dev/null)' >> ~/.bashrc
+    echo 'git config --global user.name "Dieter Devlaminck"' >> ~/.bashrc
 
 #ENV PATH="/home/vscode/.opencode/bin:${PATH}"
 ENV NO_BROWSER=true
