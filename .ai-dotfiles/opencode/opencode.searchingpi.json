@@ -45,6 +45,10 @@
           "id": "deepseek-v4-pro",
           "name": "Deepseek V4 Pro"
         },
+        "devstral-2512": {
+          "id": "devstral-2512",
+          "name": "Devstral 2512"
+        },
         "gemma-4-26b-a4b-it": {
           "id": "gemma-4-26b-a4b-it",
           "name": "Gemma 4 26b A4b It"
@@ -56,6 +60,18 @@
         "kimi-k2.6": {
           "id": "kimi-k2.6",
           "name": "Kimi K2.6"
+        },
+        "mistral-medium-3.5": {
+          "id": "mistral-medium-3.5",
+          "name": "Mistral Medium 3.5"
+        },
+        "mistral-small-2603": {
+          "id": "mistral-small-2603",
+          "name": "Mistral Small 2603"
+        },
+        "qwen3.6-27b": {
+          "id": "qwen3.6-27b",
+          "name": "Qwen3.6 27b"
         },
         "qwen3.6-35b-a3b": {
           "id": "qwen3.6-35b-a3b",
@@ -72,9 +88,13 @@
         "deepseek-v4-pro",
         "deepseek-v4-flash",
         "gemma-4-26b-a4b-it",
-        "qwen3.6-35b-a3b"
+        "qwen3.6-35b-a3b",
+        "qwen3.6-27b",
+        "mistral-medium-3.5",
+        "devstral-2512",
+        "mistral-small-2603"
       ]
-    },
+    },  
     "google": {
       "models": {
         "gemini-3.1-flash-lite": {
