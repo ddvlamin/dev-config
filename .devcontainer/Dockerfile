@@ -35,7 +35,9 @@ RUN curl -fsSL https://opencode.ai/install | bash
 
 # Stow AI dotfiles
 RUN cd .ai-dotfiles && stow -v -t ~ gemini claude codex vibe
-RUN mkdir -p ~/.config/opencode && cd .ai-dotfiles && stow -v -t ~/.config/opencode opencode
+RUN mkdir -p ~/.config/opencode/skills && cd .ai-dotfiles && stow -v -t ~/.config/opencode opencode
+RUN stow -v -t ~/.config/opencode/skills --no-folding .skills
+RUN mkdir -p ~/.agents/skills && stow -v -t ~/.agents/skills --no-folding .skills
 
 # Preserve git config and ensure uv is in PATH for bash
 RUN echo 'git config --global user.email "ddvlamin@gmail.com"' >> ~/.bashrc && \
