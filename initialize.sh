@@ -6,7 +6,7 @@ REPO_OWNER="ddvlamin"
 REPO_NAME="dev-config"
 LLM_CONFIG_REPO="llm-config"
 BRANCH="${BRANCH:-main}"
-LLM_CONFIG_BRANCH="${LLM_CONFIG_BRANCH:-$BRANCH}"
+LLM_CONFIG_BRANCH="${LLM_CONFIG_BRANCH:-main}"
 PROJECT_NAME="${1:?Usage: $0 <project-name>}"
 
 # Ensure uv is installed
