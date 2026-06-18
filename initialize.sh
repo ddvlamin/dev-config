@@ -4,7 +4,9 @@ set -e
 # Configuration
 REPO_OWNER="ddvlamin"
 REPO_NAME="dev-config"
+LLM_CONFIG_REPO="llm-config"
 BRANCH="${BRANCH:-main}"
+LLM_CONFIG_BRANCH="${LLM_CONFIG_BRANCH:-main}"
 PROJECT_NAME="${1:?Usage: $0 <project-name>}"
 
 # Ensure uv is installed
@@ -20,6 +22,9 @@ fi
 
 echo "=========================================================="
 echo "Initializing Development Environment from $REPO_OWNER/$REPO_NAME"
+if [ "$LLM_CONFIG_BRANCH" != "$BRANCH" ]; then
+    echo "LLM Config from $REPO_OWNER/$LLM_CONFIG_REPO ($LLM_CONFIG_BRANCH)"
+fi
 echo "=========================================================="
 
 # Create temporary directory for download
@@ -51,25 +56,53 @@ echo "-> Setting project name in devcontainer.json..."
 sed -i "s/\"name\": \".*\"/\"name\": \"$PROJECT_NAME\"/" .devcontainer/devcontainer.json
 echo "   [OK] devcontainer.json name set to '$PROJECT_NAME'."
 
+# Download .ai-dotfiles, .skills, and .prompts from llm-config repository
+echo "-> Downloading LLM config files from $REPO_OWNER/$LLM_CONFIG_REPO..."
+LLM_TEMP_DIR=$(mktemp -d)
+LLM_TARBALL_URL="https://github.com/$REPO_OWNER/$LLM_CONFIG_REPO/archive/refs/heads/$LLM_CONFIG_BRANCH.tar.gz"
+
+if ! curl -sSL "$LLM_TARBALL_URL" -o "$LLM_TEMP_DIR/archive.tar.gz"; then
+    echo "ERROR: Failed to download LLM config archive from $LLM_TARBALL_URL"
+    rm -rf "$LLM_TEMP_DIR"
+    exit 1
+fi
+
+echo "-> Extracting LLM config archive..."
+mkdir -p "$LLM_TEMP_DIR/extracted"
+tar -xzf "$LLM_TEMP_DIR/archive.tar.gz" -C "$LLM_TEMP_DIR/extracted" --strip-components=1
+
 # Copy .ai-dotfiles
 echo "-> Deploying .ai-dotfiles..."
-if [ -d "$TEMP_DIR/extracted/.ai-dotfiles" ]; then
+if [ -d "$LLM_TEMP_DIR/extracted/.ai-dotfiles" ]; then
     rm -rf .ai-dotfiles
-    cp -r "$TEMP_DIR/extracted/.ai-dotfiles" ./
+    cp -r "$LLM_TEMP_DIR/extracted/.ai-dotfiles" ./
     echo "   [OK] .ai-dotfiles folder updated."
 else
-    echo "   [WARNING] .ai-dotfiles folder not found in source repository."
+    echo "   [WARNING] .ai-dotfiles folder not found in LLM config repository."
 fi
 
 # Copy .skills
 echo "-> Deploying .skills..."
-if [ -d "$TEMP_DIR/extracted/.skills" ]; then
+if [ -d "$LLM_TEMP_DIR/extracted/.skills" ]; then
     rm -rf .skills
-    cp -r "$TEMP_DIR/extracted/.skills" ./
+    cp -r "$LLM_TEMP_DIR/extracted/.skills" ./
     echo "   [OK] .skills folder updated."
 else
-    echo "   [WARNING] .skills folder not found in source repository."
+    echo "   [WARNING] .skills folder not found in LLM config repository."
 fi
+
+# Copy .prompts
+echo "-> Deploying .prompts..."
+if [ -d "$LLM_TEMP_DIR/extracted/.prompts" ]; then
+    rm -rf .prompts
+    cp -r "$LLM_TEMP_DIR/extracted/.prompts" ./
+    echo "   [OK] .prompts folder updated."
+else
+    echo "   [WARNING] .prompts folder not found in LLM config repository."
+fi
+
+# Clean up LLM config temp directory
+rm -rf "$LLM_TEMP_DIR"
 
 
 # Copy .dockerignore
