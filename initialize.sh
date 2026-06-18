@@ -6,6 +6,7 @@ REPO_OWNER="ddvlamin"
 REPO_NAME="dev-config"
 LLM_CONFIG_REPO="llm-config"
 BRANCH="${BRANCH:-main}"
+LLM_CONFIG_BRANCH="${LLM_CONFIG_BRANCH:-$BRANCH}"
 PROJECT_NAME="${1:?Usage: $0 <project-name>}"
 
 # Ensure uv is installed
@@ -21,6 +22,9 @@ fi
 
 echo "=========================================================="
 echo "Initializing Development Environment from $REPO_OWNER/$REPO_NAME"
+if [ "$LLM_CONFIG_BRANCH" != "$BRANCH" ]; then
+    echo "LLM Config from $REPO_OWNER/$LLM_CONFIG_REPO ($LLM_CONFIG_BRANCH)"
+fi
 echo "=========================================================="
 
 # Create temporary directory for download
@@ -55,7 +59,7 @@ echo "   [OK] devcontainer.json name set to '$PROJECT_NAME'."
 # Download .ai-dotfiles, .skills, and .prompts from llm-config repository
 echo "-> Downloading LLM config files from $REPO_OWNER/$LLM_CONFIG_REPO..."
 LLM_TEMP_DIR=$(mktemp -d)
-LLM_TARBALL_URL="https://github.com/$REPO_OWNER/$LLM_CONFIG_REPO/archive/refs/heads/$BRANCH.tar.gz"
+LLM_TARBALL_URL="https://github.com/$REPO_OWNER/$LLM_CONFIG_REPO/archive/refs/heads/$LLM_CONFIG_BRANCH.tar.gz"
 
 if ! curl -sSL "$LLM_TARBALL_URL" -o "$LLM_TEMP_DIR/archive.tar.gz"; then
     echo "ERROR: Failed to download LLM config archive from $LLM_TARBALL_URL"
