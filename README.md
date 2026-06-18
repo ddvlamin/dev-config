@@ -6,9 +6,6 @@ Personal developer configuration repository — a single source of truth for dev
 
 | Directory | Purpose |
 |-----------|---------|
-| [`.ai-dotfiles/`](.ai-dotfiles/) | Symlink-managed configs for AI CLIs (Claude, Gemini, Codex, Vibe) via GNU Stow |
-| [`.skills/`](.skills/) | Reusable skill files for Antigravity CLI (code review, git, TDD, refactoring, …) |
-| [`.prompts/`](.prompts/) | Shared instruction files for code review, task implementation, memory bank, etc. |
 | [`.devcontainer/`](.devcontainer/) | VS Code Dev Container definition (Dockerfile + devcontainer.json) |
 
 ## Quick start
@@ -17,11 +14,13 @@ Personal developer configuration repository — a single source of truth for dev
 Open this repo in VS Code and choose **Reopen in Container**. The container installs all Python dependencies via `uv sync`.
 
 ### Workspace Initialization
-To initialize a new or existing project directory on your host machine using the templates in this repository (deploying `.devcontainer`, `.dockerignore`, `.ai-dotfiles`, `.skills`, configuring `.gitignore`, and configuring Python dependencies), run the following command from the root of the target project directory:
+To initialize a new project directory on your host machine, run the following command from the root of the target project directory:
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/ddvlamin/dev-config/main/initialize.sh | bash -s -- <project-name>
 ```
+
+It will install the AI CLI's configs and skills from the repository https://github.com/ddvlamin/llm-config
 
 *Note: You can customize the source branch by prefixing the command with `BRANCH=your-branch`.*
 
@@ -45,33 +44,22 @@ Ensure the following tools are installed on your host system:
   ```
 
 ##### GitHub CLI Authentication
-To enable smooth GitHub interaction, configure your credentials by running `gh auth login`, and manually retrieve your token with `gh auth token` and ensure it is saved in your `oauth_token` field inside `~/.config/gh/hosts.yml`.
+To enable smooth GitHub interaction, make sure your VSCode is logged in into github.
 
-Example `~/.config/gh/hosts.yml`:
-```yaml
-github.com:
-    git_protocol: https
-    users:
-        <YOUR_GITHUB_USER>s:
-    user: <YOUR_GITHUB_USER>
-    oauth_token: <YOUR_TOKEN>
+For gh in `post_setup.sh` you can export the GITHUB_TOKEN using the github credentials via your VSCode.
+
+```
+export GITHUB_TOKEN=$(printf "protocol=https\nhost=github.com\n" | git credential fill 2>&1 | grep "^password=" | cut -d= -f2)
 ```
 
-
+This token might not have permissions to set labels or other properties of github issues. For this it will need `project` scope and you will need to request a new token for this.
 
 ### AI dotfiles
-Configs for AI CLIs live in [`.ai-dotfiles/`](.ai-dotfiles/) and are managed with [GNU Stow](https://www.gnu.org/software/stow/):
+After running `initialize.sh` you will get the follwing folders with your AI CLI configurations:
 
-```bash
-cd .ai-dotfiles
-stow claude gemini codex vibe   # symlink all
-stow claude                     # or pick individual ones
-```
-
-See [`.ai-dotfiles/README.md`](.ai-dotfiles/README.md) for full details and security notes.
-
-### Skills
-Skills extend agentic CLIs with specialized behaviours (TDD, git commits, deep research, …). They live in [`.skills/`](.skills/) and are picked up automatically when `.skills/` is configured as the skills directory for your agentic CLI.
+- .ai-dotfiles
+- .skills
+- .prompts
 
 ## Dependencies
 
@@ -81,4 +69,4 @@ Skills extend agentic CLIs with specialized behaviours (TDD, git commits, deep r
 
 ## Security
 
-Never commit API keys or tokens. See [`.ai-dotfiles/README.md`](.ai-dotfiles/README.md#security-warning) for which files are `.gitignore`d per CLI.
+Never commit API keys or tokens.
