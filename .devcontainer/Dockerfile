@@ -21,7 +21,7 @@ RUN chown -R vscode:vscode /workspace
 USER vscode
 
 # Copy project source code
-COPY . .
+COPY --chown=vscode:vscode . .
 
 RUN uvx --from "omega-memory[server]" omega setup --download-model
 
