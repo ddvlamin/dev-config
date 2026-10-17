@@ -20,7 +20,8 @@
                 "github.vscode-pull-request-github",
                 "mermaidchart.vscode-mermaid-chart",
                 "pomdtr.excalidraw-editor",
-                "hashicorp.terraform"
+                "hashicorp.terraform",
+                "george-alisson.html-preview-vscode"
             ],
             "settings": {
                 "python.defaultInterpreterPath":"/workspace/.venv/bin/python"
